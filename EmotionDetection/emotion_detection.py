@@ -12,7 +12,7 @@ def emotion_detector(text_to_analyse):
     # Prepare the request body with the text to be analyzed
     req_body = { "raw_document": { "text": text_to_analyse } }
 
-    # Send a POST request to the sentiment analysis API
+    # Send a POST request to the emotion prediction API
     response = requests.post(url, json=req_body, headers=header, timeout=10)
 
     if response.status_code == 400:
@@ -31,6 +31,8 @@ def emotion_detector(text_to_analyse):
 
     # Extract emotions and scores from the response
     emotions = formatted_response['emotionPredictions'][0]['emotion']
+
+    # Determine the dominant emotion and set the value within the dictionary
     dominant_emotion = ""
     highest_score = 0
     for key, value in emotions.items():
